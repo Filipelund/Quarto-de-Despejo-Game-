@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Images/Icone do site.ico" type="image/png">
+    <title>Quarto de Despejo</title>
+
+    <!-- Estilo para o dowload do livro-->
+    <link rel="stylesheet" type="text/css" href="Css-Pdf/Book_Dowload.css"/>
+
+
+<style>
+
+
+
+
+
+body {
+background-color: #CBBBA7;
+}
+
+
+
+
+
+.barra-superior {
+display: flex; /* ativa flexbox */
+justify-content: center; /* centraliza horizontalmente */
+align-items: center; /* centraliza verticalmente */
+margin-top: 20px;
+border: solid 4px #798252;
+padding: 20px;
+border-radius: 20px;
+background-color: #331F19;
+height: 15px;
+}
+
+
+
+.barra-superior h1 {
+font-size: 30px; /* aumente para destacar melhor o efeito */
+text-align: center;
+background-image: url('/Images/Fundo-de-letras.webp');
+background-size: cover;
+background-position: center;
+-webkit-background-clip: text; /* para browsers baseados em WebKit */
+background-clip: text;
+color: transparent; /* deixa o texto invisível, só mostrando a imagem */
+}
+
+
+
+
+
+
+
+
+
+
+.caixa-jogo {
+position: relative;
+width: 95%;
+height: 350px;
+margin: 0 auto;
+background-image: url(Images/Favela.png);
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+border: solid 4px #1C352D;
+border-bottom: 30px solid  rgb(10, 25, 50);;
+border-radius: 10px;
+overflow: hidden;
+filter: brightness(30%);
+}
+
+
+
+
+
+
+
+
+.Carolina {
+position: absolute;
+height: 110px;
+bottom: 0;
+transform: translateY(15px) translateX(0px);
+}
+
+
+.jump {
+animation: Carolina-jump 600ms ease-out;
+}
+
+
+@keyframes Carolina-jump {
+
+  0% {
+    bottom: 0;
+   }
+
+   40% {
+    bottom: 180px;
+   }
+
+  50% {
+    bottom: 180px;
+   }
+
+   60% {
+    bottom: 180px;
+   }
+   
+   
+   100% {
+    bottom: 0;
+   }
+
+}
+
+
+
+
+.inimigos {
+position: absolute;
+bottom: 0;
+width: 150px;
+}
+
+.inimigo-animação {
+animation: inimigo-animation 2s infinite linear;
+}
+
+
+@keyframes inimigo-animation {
+
+    from {
+      right: -80px;
+      transform: translateY(40px) translateX(50px);
+    }
+
+
+    to {
+     right: 100%;
+     transform: translateY(40px) translateX(50px);
+    }
+
+}
+
+
+
+
+
+
+
+
+.nuvens {
+position: absolute;
+width: 190px;
+right: 0;
+top: 10px;
+animation: nuvem-animation 4s infinite linear;
+}
+
+
+@keyframes nuvem-animation {
+
+  from {
+  right: -210px;
+  }
+
+  to {
+  right: 100%;
+  }
+
+}
+
+
+
+
+
+
+
+
+.caixa-botao-pular {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+
+
+.botao-pular {
+background-color: #fbeee0;
+border: 2px solid #422800;
+border-radius: 30px;
+box-shadow: #422800 4px 4px 0 0;
+color: #422800;
+cursor: pointer;
+display: inline-block;
+font-weight: 600;
+font-size: 18px;
+padding: 4px 40px;
+line-height: 50px;
+text-align: center;
+text-decoration: none;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent; /* Chrome, Safari e outros WebKit */
+  -moz-focus-inner: none; /* Firefox para botões */
+margin-bottom: 10px;
+}
+
+.botao-pular:hover {
+  background-color: #fff;
+}
+
+.botao-pular:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+
+
+
+
+
+#contador_pontos {
+font-family: "Open Sans", sans-serif;
+font-size: 21px;
+width: 200px;
+letter-spacing: 2px;
+text-decoration: none;
+text-transform: uppercase;
+color: #000;
+cursor: pointer;
+border: 3px solid;
+padding: 0.25em 0.5em;
+box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+position: relative;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+text-align: center;
+margin: 0 auto;
+}
+
+
+.Caixa-ponto {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.Caixa-ponto img {
+position: absolute;
+width: 20px;
+right: 50px;
+transform: translateY(-2px);
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); /* sombra delicada */
+border-radius: 100%;
+padding: 2px;
+}
+
+
+
+
+
+
+
+
+.Começar-jogo {
+position: absolute;
+width: 200px;
+height: 40px;
+top: 50%;       /* posiciona 50% do topo da viewport */
+left: 50%;      /* posiciona 50% da esquerda da viewport */
+transform: translate(-50%, -50%);  /* desloca o botão para centralizar */
+text-align: center;
+
+appearance: none;
+background-color: #FCFCFD;
+border-radius: 4px;
+border-width: 0;
+box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+box-sizing: border-box;
+color: #36395A;
+cursor: pointer;
+font-family: "JetBrains Mono",monospace;
+line-height: 1;
+list-style: none;
+overflow: hidden;
+padding-left: 16px;
+padding-right: 16px;
+text-decoration: none;
+transition: box-shadow .15s,transform .15s;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+white-space: nowrap;
+will-change: box-shadow,transform;
+font-size: 18px;
+box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+
+}
+
+
+.Começar-jogofocus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.Começar-jogo:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.Começar-jogo:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+}
+
+
+
+
+
+
+
+
+
+.Sobre-autora {
+display: flex;
+flex-direction: column; /* faz os itens ficarem empilhados verticalmente */
+width: 97%;
+align-items: center;
+justify-content: center;
+margin: 0 auto;
+box-shadow: 0px 2px 50px 10px rgba(0, 0, 0, 0.21);
+border-radius: 5px;
+}
+
+
+
+.Sobre-autora img {
+width: 200px;
+border-radius: 10px;
+ box-shadow: -2px 6px 19px 0px #7f818e;
+ transition: .3s ease;
+
+ &:hover {
+  transform: scale(1.03);
+ }
+
+}
+
+
+.Sobre-autora h1 {
+font-family: 'PP Neue Montreal';
+text-shadow: 0 0 80px rgba(255,255,255,.5);
+text-align: center;
+font-style: oblique;
+text-decoration: underline;
+}
+
+
+.Sobre-autora p {
+box-sizing: border-box;
+width: 95%;
+padding: 1em;
+background: #ededed;
+color: #121212;
+font: clamp(1.2em, 4vw, 2em) 'Roboto Condensed', sans-serif;
+filter: url(#tear);
+margin: 0 auto;
+display: block;
+border-radius: 5px;
+
+
+/* Estilização da primeira letra como no exemplo */
+&::first-letter {
+  float: left;
+  margin-right: 0.125em;
+  color: crimson;
+  font: 900 calc(var(--n, 4) * 1em) / calc(var(--n, 4) * 1lh) 'Kablammo', cursive;
+}
+
+}
+
+
+
+
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap');
+
+.titulo-frases {
+text-align: center;
+font-family: 'Pixelify Sans', monospace, sans-serif;
+text-shadow: 0 0 12px rgba(0,0,0,0.8);
+user-select: none;
+}
+
+
+
+
+.caixa-trechos {
+margin: 0 auto;
+background: #090d00;
+color: rgba(255,255,255,.25);
+width: 320px;
+height: 200px;
+border-radius: 8px;
+box-shadow: 0 0 12px rgba(0,0,0,0.8);
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+padding: 0 40px;
+text-align: center;
+user-select: none;
+}
+
+.texto-trecho {
+font-size: 1em;
+line-height: 1.5;
+color: rgb(184, 134, 11);
+max-width: 240px;
+opacity: 1;
+transition: opacity 0.5s ease;
+}
+
+.texto-desaparece {
+opacity: 0;
+}
+
+.seta {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+font-size: 2em;
+color: rgba(255,255,255,0.25);
+cursor: pointer;
+transition: transform 0.3s ease; 
+user-select: none;
+transition: color 0.3s ease;
+ -webkit-tap-highlight-color: transparent; /* Chrome, Safari e outros WebKit */
+  -moz-focus-inner: none; /* Firefox para botões */
+}
+
+.seta:hover {
+color: rgba(255,255,255,0.7);
+font-size: 2.5rem;
+}
+
+.seta-esquerda {
+left: 8px;
+}
+
+.seta-direita {
+right: 8px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.Reflexão-caixa {
+display: flex;
+flex-direction: column; 
+align-items: center;
+justify-content: center;
+}
+
+
+
+.linha-envelope {
+border: none;
+border-top: 2px dotted #000; /* linha preta */
+margin: 30px 0;
+width: 100%;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); /* sombra delicada */
+}
+
+
+
+
+
+.envelope {
+width: 300px;
+filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.5));
+cursor: pointer;
+transition: transform 0.7s ease;
+transition: filter 0.7s ease;
+-webkit-tap-highlight-color: transparent; /* Chrome, Safari e outros WebKit */
+  -moz-focus-inner: none; /* Firefox para botões */
+}
+
+.envelope:active {
+transform: scale(0.9);
+filter: drop-shadow(0 0 15px rgba(0,0,0,0.7));
+}
+
+
+
+
+.carta-reflexão {
+width: 100%;
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: rgba(0, 0, 0, 0.8);
+z-index: 1000;
+transition: opacity 0.3s ease;
+padding-top: 90px;
+padding-bottom: 160px;
+overflow-y: auto;
+border-radius: 5px;
+
+/*inibe a imagem */
+display: none;
+opacity: 0;
+
+}
+
+
+.xSair {
+position: fixed;
+top: 10px;
+right: 15px;
+z-index: 1000;
+color: red;
+font-size: 50px;
+box-shadow: 0 0 12px red;
+padding: 5px;
+border-radius: 10px;
+background: rgba(0, 0, 0, 0.8);
+
+/*inibe o X */
+display: none;
+opacity: 0;
+
+outline: none; /* remove foco azul */
+-webkit-tap-highlight-color: transparent; /* remove highlight ao tocar no mobile */
+user-select: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Novo container para comentários */
+.container-comentarios {
+margin-top: -30px;
+  padding: 20px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding-top: 10px;
+  background:
+    radial-gradient(circle 3px, #dd8448 1px, transparent 1px),
+    linear-gradient(to right, rgba(36,31,31,1) 0%, rgba(36,31,31,1) 32%, rgba(74,71,70,1) 100%);
+  background-repeat: repeat, no-repeat;
+  background-position: 0 0, center;
+  background-size: 40px 40px, cover;  /* espaçamento maior entre os pontos */
+}
+
+
+
+.container-comentarios h2 {
+font-size: 24px;
+color: white;
+text-align: center;
+margin-bottom: 20px;
+paint-order: stroke fill; /* Define que o traço (stroke) será pintado antes do preenchimento (fill) */
+-webkit-text-stroke: 5px black; /* Traço preto com 5px de largura */
+text-shadow: 5px 5px black; /* Sombra preta para o texto */
+font-weight: 900;
+text-transform: uppercase;
+letter-spacing: -0.175ch;
+line-height: 0.9;
+}
+
+.texto-comentario p {
+    font-size: 16px;
+    color: white;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    padding-bottom: 10px;
+}
+
+
+
+
+
+
+.container-comentarios .github-link {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    padding-bottom: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.container-comentarios .github-link a {
+    font-size: 18px;
+    color: #fff;
+    background-color: #333;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    box-shadow: 0 0 4px #dd8448, 0 0 4px #dd8448, 0 0 6px #dd8448, 0 0 8px #dd8448;
+    animation: Pulsante-animacao 1.5s infinite alternate;
+}
+
+@keyframes Pulsante-animacao {
+    0% {
+        box-shadow: 0 0 2px #dd8448, 0 0 2px #dd8448, 0 0 3px #dd8448, 0 0 4px #dd8448;
+    }
+    50% {
+        box-shadow: 0 0 6px #dd8448, 0 0 6px #dd8448, 0 0 9px #dd8448, 0 0 12px #dd8448;
+    }
+    100% {
+        box-shadow: 0 0 2px #dd8448, 0 0 2px #dd8448, 0 0 3px #dd8448, 0 0 4px #dd8448;
+    }
+}
+
+
+
+.container-comentarios .github-link a:hover {
+    background-color: #555;
+}
+
+
+
+
+
+.icone-Github {
+width: 40px;
+height: 40px;
+background-image: url('Images/Icon-Github.webp'); /* Substitua com a URL da imagem desejada */
+background-size: cover;
+background-position: center;
+border-radius: 50%;
+margin-right: 10px;
+box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.7);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (min-width: 1524px) {
+
+
+  .carta-reflexão {
+  max-width: 525px; /* 90% da largura da viewport */
+  margin: 0 auto;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 500px;
+  padding-right: 500px;
+}
+
+
+}
+
+
+
+
+
+</style>
+
+
+
+
+
+
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="barra-superior">
+
+<h1> Quarto de Despejo </h1>
+
+</div>
+
+
+
+<br><br><br><br>
+
+
+
+<div class="Caixa-ponto">
+
+<h1 id="contador_pontos">Pontos: 00000</h1>
+
+<img src="Images/Sound-icon.webp">
+
+</div>
+
+
+
+
+<div class="caixa-jogo">
+
+
+<img class="Carolina" src="/Images/Personagens/Personagem Carolina.gif">
+
+<img class="inimigos" src="/Images/Personagens/PT-inimigo.webp">
+
+<img class="nuvens" src="Images/Nuvens.webp"> 
+
+
+
+
+</div>
+
+
+<div id="botao-começar" onclick="Start_and_End()"></div>
+
+<br>
+
+
+
+<div class="caixa-botao-pular">
+
+<button class="botao-pular" onclick="jump()"> Pular </button>
+
+</div>
+
+
+
+
+<br><br>
+
+
+
+<div class="Sobre-autora">
+
+<br>
+  
+
+<img src="Images/Foto-Autora.webp" alt="Autora">
+
+<h1>Carolina Maria de Jesus</h1>
+
+<p>A My Lady, ou Lady dos miseráveis, espero que isso não seja interpretado como algo ofensivo; eram meus elogios a essa guerreira. Bem, ela nasceu em 1914, lá em uma pequena cidade de Minas Gerais. Ela teve uma infância difícil, imagina uma criança pobre em uma cidade do interior. Ela teve poucas oportunidades e, principalmente, de estudar, mas mesmo assim era uma menina muito curiosa e determinada, mesmo sempre vivendo perto de sofrimento e luta pra viver.</p>
+
+
+<br>
+
+</div>
+
+
+
+
+<br><br><br>
+
+
+
+<h1 class="titulo-frases">Frases do Livro</h1>
+
+
+<div class="caixa-trechos">
+
+  <div id="texto-trecho" class="texto-trecho">
+    "O Brasil precisa ser dirigido por uma pessoa que já passou fome. A fome também é professora. Quem passa fome aprende a pensar no próximo, e nas crianças"
+  </div>
+
+  <div class="seta seta-esquerda" id="botao-anterior" tabindex="0">&#10094;</div>
+  <div class="seta seta-direita" id="botao-proximo" tabindex="0">&#10095;</div>
+
+</div>
+
+
+
+
+<br><br><br>
+
+
+
+<div class="Reflexão-caixa">
+
+
+<hr class="linha-envelope">
+<img class="envelope" onclick=" cartaReflexão()" src="Images/envelope.webp">
+<hr class="linha-envelope">
+
+
+<img class="carta-reflexão" src="Images/Carta-Reflexão.webp">
+<div class="xSair">X</div>
+
+
+</div>
+
+
+
+
+<br><br>
+
+
+
+<div class="component">
+				<ul class="align">
+					<li>
+						<figure class='book'>
+
+							<!-- Frente -->
+
+							<ul class='hardcover_front'>
+								<li>
+									<div class="coverDesign Capa-livro">
+									</div>
+								</li>
+								<li></li>
+							</ul>
+
+							<!-- Pages -->
+
+							<ul class='page'>
+								<li></li>
+								<li>
+									<a class="btn" href="Css-Pdf/Quarto de Despejo - Maria Carolina de Jesus.pdf" download>Download</a>
+								</li>
+								<li></li>
+								<li></li>
+								<li></li>
+							</ul>
+
+							<!-- Back -->
+
+							<ul class='hardcover_back'>
+								<li></li>
+								<li></li>
+							</ul>
+							<ul class='book_spine'>
+								<li></li>
+								<li></li>
+							</ul>
+							<figcaption>
+								<h1>Quarto de Despejo</h1>
+								<span>Por Carolina Maria de Jesus</span>
+								<p>Clique no Livro para baixar "Quarto de Despejo" em PDF</p>
+							</figcaption>
+						</figure>
+					</li>
+				</ul>
+			</div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Container de Comentários e Link do GitHub -->
+<div class="container-comentarios">
+
+
+<h2>Comentários</h2>
+
+<div class="texto-comentario">
+<p>Bem, isso aqui é um projeto meu, eu diria o primeiro jogo desse livro :3</p>
+</div>
+
+<div class="github-link">
+<div class="icone-Github"></div>
+<a href="https://github.com/Filipelund" target="_blank">Visite meu GitHub</a>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+
+
+//Funcionalidade do trecho de livros
+const trechosLivro = [
+    '"O Brasil precisa ser dirigido por uma pessoa que já passou fome. A fome também é professora. Quem passa fome aprende a pensar no próximo, e nas crianças"',
+    '"Não casei e não estou descontente. Os que preferiu me eram soezes e as condições que eles me impunham eram horríveis."',
+    '"O senhor Manuel apareceu dizendo que quer casar-se comigo. Mas eu não quero porque já estou na maturidade."',
+    '"Tudo na minha vida é fantástico. Pai não conhece filho, filho não conhece pai."',
+    '"Tem pessoas que zombam dos que pedem."',
+    '"Os bons eu enalteço, os maus eu critico. Devo reservar as palavras suaves para os operários, para os mendigos, que são escravos da miséria."'
+  ];
+
+  let indiceAtual = 0;
+  const elementoTextoTrecho = document.getElementById('texto-trecho');
+  const botaoAnterior = document.getElementById('botao-anterior');
+  const botaoProximo = document.getElementById('botao-proximo');
+
+  function trocarTrecho(novoIndice) {
+    elementoTextoTrecho.classList.add('texto-desaparece');
+    setTimeout(() => {
+      indiceAtual = (novoIndice + trechosLivro.length) % trechosLivro.length;
+      elementoTextoTrecho.textContent = trechosLivro[indiceAtual];
+      elementoTextoTrecho.classList.remove('texto-desaparece');
+    }, 300);
+  }
+
+  botaoAnterior.addEventListener('click', () => trocarTrecho(indiceAtual - 1));
+  botaoProximo.addEventListener('click', () => trocarTrecho(indiceAtual + 1));
+
+
+
+
+
+
+
+
+function cartaReflexão() {
+
+const carta = document.querySelector(".carta-reflexão")
+
+carta.style.display = "block"
+carta.style.opacity = "100%"
+
+
+const xSair = document.querySelector(".xSair")
+
+xSair.style.display = "block"
+xSair.style.opacity = "100%"
+
+
+
+xSair.onclick = function() {
+
+carta.style.display = "none"
+carta.style.opacity = "0%"
+
+xSair.style.display = "none"
+xSair.style.opacity = "0%"
+
+}
+
+}
+
+
+
+
+// const icone_som = document.getElementById("contador_pontos") const elemento_som = document.createElement("button") elemento_som.style.position = "absolute" elemento_som.style.transform = "translateX(20px)" icone_som.appendChild(elemento_som)
+
+
+
+
+
+
+
+
+//Funcionalidade do botão começar
+const botao_começar = document.getElementById("botao-começar")
+const elemento_botao = document.createElement("button")
+
+elemento_botao.innerText = "Começar jogo"
+elemento_botao.classList.add("Começar-jogo") // Adiciona a classe CSS
+
+botao_começar.style.webkitTapHighlightColor = 'transparent'; // para Chrome, Safari e outros WebKit
+botao_começar.style.MozFocusInner = 'none'; // para Firefox
+
+botao_começar.appendChild(elemento_botao)
+
+
+
+
+
+//Para o personagem pular (e precisa estar no escopo global)
+const Carolina = document.querySelector(".Carolina")
+
+const jump = () => {
+  if (!Carolina.classList.contains('jump')) {
+    Carolina.classList.add('jump');
+    
+    setTimeout(() => {
+      Carolina.classList.remove('jump');
+    }, 600); // tempo igual ao da animação CSS
+  }
+}
+
+
+
+
+
+//Define a posição inicial do inimigo, antes da função começar
+const inimigos = document.querySelector(".inimigos");
+inimigos.style.transform = "translateY(40px) translateX(900px)";
+
+
+
+
+
+
+
+
+// Array com as imagens dos inimigos
+const imagensInimigos = [
+  "/Images/Personagens/PT-inimigo.webp",
+  "/Images/Personagens/Trash-inimigo.webp", 
+  "/Images/Personagens/Capivara.gif"
+];
+
+
+// Função para escolher um inimigo aleatório
+function escolherInimigoAleatorio() {
+  const indiceAleatorio = Math.floor(Math.random() * imagensInimigos.length);
+  return imagensInimigos[indiceAleatorio];
+}
+
+
+// Função para trocar o inimigo
+function trocarInimigo() {
+
+  const novaImagemInimigo = escolherInimigoAleatorio();
+  inimigos.src = novaImagemInimigo;
+  console.log("Inimigo trocado para:", novaImagemInimigo); // Para debug
+
+
+  // Aplica estilos personalizados para cada inimigo
+  if (novaImagemInimigo.includes("PT-inimigo.webp")) {
+    inimigos.style.width = ''
+    inimigos.style.top = ""
+
+  } else if (novaImagemInimigo.includes("Trash-inimigo.webp")) {
+    inimigos.style.width = '130px'
+    inimigos.style.top = "230px"
+
+  } else if (novaImagemInimigo.includes("Capivara.gif")) {
+    inimigos.style.width = '130px'
+    inimigos.style.top = "211px"
+
+  }
+
+}
+
+// Variáveis para controlar a troca de inimigos
+let intervalTrocaInimigo;
+let jogoAtivo = false;
+
+
+
+
+
+
+
+
+
+const musicasDeFundo = [
+  '/Audio/Brasileirinho-8Bit.mp3',
+  '/Audio/Cidade-Da-Zueira.mp3',
+  '/Audio/Change16Bit-LucasPucas.mp3',
+  '/Audio/DuskForest-Pokemon.mp3',
+  '/Audio/Kass-Theme-bit.mp3',
+  '/Audio/Steven-Universe-Stronger-Than-You-megaman.mp3',
+  '/Audio/Other-Friends-16Bit.mp3',
+  '/Audio/Um-Nariz-Vermelho.mp3',
+  '/Audio/Thema-Vitória.mp3',
+  '/Audio/Praia.mp3',
+  '/Audio/Life-Will-Change-Persona5.mp3'
+]; 
+
+// Variável global para o objeto Audio da música atual
+let musicaAtual = null;
+let ultimaMusicaIndice = -1;
+
+
+// Função para escolher uma música aleatória e iniciar a reprodução
+function tocarMusicaAleatoria() {
+  // Se já estiver tocando uma música, pare antes
+  if (musicaAtual) {
+    musicaAtual.pause();
+    musicaAtual = null;
+  }
+
+
+  // Escolhe índice aleatório
+  let indiceAleatorio;
+  do {
+    indiceAleatorio = Math.floor(Math.random() * musicasDeFundo.length);
+  } while (indiceAleatorio === ultimaMusicaIndice);
+
+
+  ultimaMusicaIndice = indiceAleatorio
+
+  // Cria novo objeto Audio
+  musicaAtual = new Audio(musicasDeFundo[indiceAleatorio]);
+
+  // Define para tocar em loop durante o jogo
+  musicaAtual.loop = true;
+
+  // Define volume inicial (exemplo: metade do volume máximo)
+  musicaAtual.volume = 0.2;
+
+  // Inicia reprodução
+  musicaAtual.play();
+}
+
+// Função para ajustar volume da música atual (valor de 0 a 1)
+function ajustarVolumeMusica(novoVolume) {
+  if (musicaAtual) {
+    musicaAtual.volume = novoVolume;
+  }
+}
+
+
+
+
+
+
+
+
+function Start_and_End() {
+
+
+// Seleciona os elementos do personagem e inimigo no DOM
+const Carolina = document.querySelector(".Carolina");
+const inimigos = document.querySelector(".inimigos");
+
+// Cria ou obtém as divs que irão mostrar visualmente as hitboxes
+let hitboxCarolina = document.getElementById('hitboxCarolina');
+let hitboxInimigos = document.getElementById('hitboxInimigos');
+
+if (!hitboxCarolina) {
+  hitboxCarolina = document.createElement('div'); // cria div para hitbox do personagem
+  hitboxCarolina.id = 'hitboxCarolina';
+  document.body.appendChild(hitboxCarolina); // adiciona no corpo do documento
+}
+
+if (!hitboxInimigos) {
+  hitboxInimigos = document.createElement('div'); // cria div para hitbox do inimigo
+  hitboxInimigos.id = 'hitboxInimigos';
+  document.body.appendChild(hitboxInimigos);
+}
+
+// Estilo das hitboxes (bordas vermelhas visíveis)
+hitboxCarolina.style.position = 'absolute';
+hitboxCarolina.style.border = '2px solid transparent';
+hitboxCarolina.style.pointerEvents = 'none'; // para não interferir em cliques
+hitboxCarolina.style.zIndex = '1000'; // fica em cima dos outros elementos
+
+hitboxInimigos.style.position = 'absolute';
+hitboxInimigos.style.border = '2px solid transparent';
+hitboxInimigos.style.pointerEvents = 'none';
+hitboxInimigos.style.zIndex = '1000';
+
+// Configurações para ajustar o tamanho da hitbox (margens e escala)
+// offsetX e offsetY deslocam a hitbox em px; scaleX e scaleY escalam largura e altura (1 = 100%)
+const ajustesCarolina = { offsetX: 40, offsetY: 40, scaleX: 0.2, scaleY: 0.4 };
+const ajustesInimigos = { offsetX: 50, offsetY: 60, scaleX: 0.2, scaleY: 0.2 };
+
+/**
+ * Atualiza a posição e tamanho da hitbox visual de acordo com o elemento e ajustes
+ * @param {HTMLElement} element - elemento da página (personagem ou inimigo)
+ * @param {HTMLElement} hitbox - div que mostra a hitbox
+ * @param {Object} ajustes - objeto que define deslocamento e escala da hitbox
+ */
+function atualizarHitbox(element, hitbox, ajustes) {
+  const rect = element.getBoundingClientRect();
+
+  // Calcula nova largura e altura segundo escala
+  const width = rect.width * ajustes.scaleX;
+  const height = rect.height * ajustes.scaleY;
+
+  // Define posição e tamanho da hitbox com deslocamento aplicado
+  hitbox.style.left = `${rect.left + ajustes.offsetX}px`;
+  hitbox.style.top = `${rect.top + ajustes.offsetY}px`;
+  hitbox.style.width = `${width}px`;
+  hitbox.style.height = `${height}px`;
+}
+
+/**
+ * Verifica se duas hitboxes ajustadas estão colidindo (sobrepostas)
+ * @param {HTMLElement} el1 - primeiro elemento (com bounding rect)
+ * @param {HTMLElement} el2 - segundo elemento
+ * @param {Object} ajustes1 - ajustes da hitbox do primeiro elemento
+ * @param {Object} ajustes2 - ajustes da hitbox do segundo elemento
+ * @returns {boolean} true se colidir, false caso contrário
+ */
+function detectarColisao(el1, el2, ajustes1, ajustes2) {
+  const r1 = el1.getBoundingClientRect();
+  const r2 = el2.getBoundingClientRect();
+
+  // Calcula as bordas ajustadas das hitboxes
+  const rect1 = {
+    left: r1.left + ajustes1.offsetX,
+    top: r1.top + ajustes1.offsetY,
+    right: r1.left + ajustes1.offsetX + r1.width * ajustes1.scaleX,
+    bottom: r1.top + ajustes1.offsetY + r1.height * ajustes1.scaleY,
+  };
+
+  const rect2 = {
+    left: r2.left + ajustes2.offsetX,
+    top: r2.top + ajustes2.offsetY,
+    right: r2.left + ajustes2.offsetX + r2.width * ajustes2.scaleX,
+    bottom: r2.top + ajustes2.offsetY + r2.height * ajustes2.scaleY,
+  };
+
+  // Verifica se os retângulos se sobrepõem
+  return !(rect1.bottom < rect2.top ||
+           rect1.top > rect2.bottom ||
+           rect1.right < rect2.left ||
+           rect1.left > rect2.right);
+}
+
+
+// Variáveis para controlar a troca de inimigos
+let contadorCiclos = 0;
+let inimigoTrocado = false;
+
+
+// Loop principal do jogo executado repetidamente
+const loop_jogo = setInterval(() => {
+  // Atualiza as posições visuais das hitboxes para o personagem e o inimigo
+  atualizarHitbox(Carolina, hitboxCarolina, ajustesCarolina);
+  atualizarHitbox(inimigos, hitboxInimigos, ajustesInimigos);
+
+
+  // Sistema de troca baseado em tempo/ciclos da animação
+  contadorCiclos++;
+  
+  // A animação do inimigo dura 2 segundos (2000ms), com loop a cada 30ms = ~67 ciclos por animação
+  // Troca o inimigo a cada ciclo completo da animação
+  if (contadorCiclos >= 67 && !inimigoTrocado) {
+    inimigoTrocado = true;
+    trocarInimigo();
+    
+    // Reseta após um breve delay
+    setTimeout(() => {
+      contadorCiclos = 0;
+      inimigoTrocado = false;
+    }, 0.1);
+  }
+
+
+  // Verifica colisão com os ajustes aplicados; se colidir, para a animação e altera imagem
+  if (detectarColisao(Carolina, inimigos, ajustesCarolina, ajustesInimigos)) {
+    inimigos.style.animation = "none"; // para a animação do inimigo
+    Carolina.src = "./Images/Personagens/Carolina-game-over.png"; // muda a imagem (fim do jogo)
+    clearInterval(loop_jogo); // para o loop do jogo para evitar novo processamento
+
+    // Para a troca de inimigos
+    jogoAtivo = false;
+    
+    Tela_GameOver()
+
+    clearTimeout(pararPontos);
+
+
+    // Pausa a música de fundo ao perder o jogo
+  if (musicaAtual) {
+    musicaAtual.pause();
+  }
+
+
+  }
+}, 30); // roda a cada 30ms, perto de 33fps para suavidade
+
+
+
+
+//esconde botão de começar quando jogo inicia e ajeita a luz da caixa, e também a posição inicial do inimigo
+elemento_botao.style.opacity = "0%"
+elemento_botao.style.pointerEvents = "none"
+
+const luz_caixa = document.querySelector(".caixa-jogo")
+luz_caixa.style.filter = "brightness(100%)"
+
+
+
+// Marca o jogo como ativo
+jogoAtivo = true;
+
+
+//Ativa musica de fundo
+tocarMusicaAleatoria();
+
+
+
+
+//Quando o inimigo atingir, para organizar sua posição
+inimigos.style.transform = "translateY(40px) translateX(300px)" 
+
+
+
+
+const inimigos_animação = document.querySelector(".inimigos")
+
+inimigos_animação.classList.add("inimigo-animação")
+
+
+
+
+let pararPontos
+
+//Sistema de Pontos
+const contador_pontos = document.getElementById('contador_pontos');
+let valor_pontos = 0;
+const limite_pontos = 9999999999999999999999999999;
+
+
+function incrementar_pontos() {
+    if (valor_pontos < limite_pontos) {
+    const texto = valor_pontos.toString().padStart(5, '0');
+    contador_pontos.innerText = "Pontos: " + texto;
+    
+
+    valor_pontos++;
+    pararPontos = setTimeout(incrementar_pontos, 50); // Atualiza a cada 50ms (rapidamente)
+    }
+
+   
+}
+
+incrementar_pontos();
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+function Tela_GameOver() {
+
+
+// Cria o botão de recomeçar
+  const botao_gameOver = document.getElementById("botao-começar");
+  const gamOver_elemento = document.createElement("button");
+  
+
+  gamOver_elemento.innerText = "Recomeçar";
+  gamOver_elemento.classList.add("Começar-jogo");
+  gamOver_elemento.style.color = "green"
+
+  botao_gameOver.appendChild(gamOver_elemento);
+
+
+
+gamOver_elemento.onclick = function() {
+
+  if (true) {   
+
+  //faz o botao recomeçar desparecer ao iniciar o novo jogo
+  botao_gameOver.style.opacity = "0%"
+  gamOver_elemento.style.pointerEvents = "none"
+  
+  
+  // Reinicie animações, classes, imagens
+  Carolina.src = "/Images/Personagens/Personagem Carolina.gif";
+  inimigos.style.animation = "";
+  inimigos.classList.remove("inimigo-animação");
+  
+  // Reinicie loops e timers
+  clearInterval(loop_jogo);
+
+  clearInterval(reiniciarInimigos)
+
+  //reinicia a música
+  tocarMusicaAleatoria();
+
+  } 
+
+};
+
+
+
+const luz_caixa = document.querySelector(".caixa-jogo")
+luz_caixa.style.filter = "brightness(30%)"
+
+
+botao_gameOver.style.opacity = "100%"
+
+
+botao_gameOver.style.webkitTapHighlightColor = 'transparent'; // para Chrome, Safari e outros WebKit
+botao_gameOver.style.MozFocusInner = 'none'; // para Firefox
+
+
+
+
+}
+
+
+
+
+
+</script>
+
+
+
+
+
+    
+</body>
+</html>
