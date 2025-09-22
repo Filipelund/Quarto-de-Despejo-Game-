@@ -1307,7 +1307,7 @@ const loop_jogo = setInterval(() => {
   // Verifica colisão com os ajustes aplicados; se colidir, para a animação e altera imagem
   if (detectarColisao(Carolina, inimigos, ajustesCarolina, ajustesInimigos)) {
     inimigos.style.animation = "none"; // para a animação do inimigo
-    Carolina.src = ".Images/Personagens/Carolina-game-over.png"; // muda a imagem (fim do jogo)
+    Carolina.src = "Images/Personagens/Carolina-game-over.png"; // muda a imagem (fim do jogo)
     clearInterval(loop_jogo); // para o loop do jogo para evitar novo processamento
 
     // Para a troca de inimigos
@@ -1470,6 +1470,7 @@ botao_gameOver.style.MozFocusInner = 'none'; // para Firefox
     
 </body>
 </html>
+
 
 
 
