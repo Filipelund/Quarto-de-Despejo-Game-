@@ -41,7 +41,7 @@ height: 15px;
 .barra-superior h1 {
 font-size: 30px; /* aumente para destacar melhor o efeito */
 text-align: center;
-background-image: url('/Images/Fundo-de-letras.webp');
+background-image: url('Images/Fundo-de-letras.webp');
 background-size: cover;
 background-position: center;
 -webkit-background-clip: text; /* para browsers baseados em WebKit */
@@ -751,9 +751,9 @@ box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.7);
 <div class="caixa-jogo">
 
 
-<img class="Carolina" src="/Images/Personagens/Personagem Carolina.gif">
+<img class="Carolina" src="Images/Personagens/Personagem Carolina.gif">
 
-<img class="inimigos" src="/Images/Personagens/PT-inimigo.webp">
+<img class="inimigos" src="Images/Personagens/PT-inimigo.webp">
 
 <img class="nuvens" src="Images/Nuvens.webp"> 
 
@@ -1004,7 +1004,6 @@ xSair.style.opacity = "0%"
 
 
 
-// const icone_som = document.getElementById("contador_pontos") const elemento_som = document.createElement("button") elemento_som.style.position = "absolute" elemento_som.style.transform = "translateX(20px)" icone_som.appendChild(elemento_som)
 
 
 
@@ -1059,9 +1058,9 @@ inimigos.style.transform = "translateY(40px) translateX(900px)";
 
 // Array com as imagens dos inimigos
 const imagensInimigos = [
-  "/Images/Personagens/PT-inimigo.webp",
-  "/Images/Personagens/Trash-inimigo.webp", 
-  "/Images/Personagens/Capivara.gif"
+  "Images/Personagens/PT-inimigo.webp",
+  "Images/Personagens/Trash-inimigo.webp", 
+  "Images/Personagens/Capivara.gif"
 ];
 
 
@@ -1299,7 +1298,7 @@ const loop_jogo = setInterval(() => {
   // Verifica colisão com os ajustes aplicados; se colidir, para a animação e altera imagem
   if (detectarColisao(Carolina, inimigos, ajustesCarolina, ajustesInimigos)) {
     inimigos.style.animation = "none"; // para a animação do inimigo
-    Carolina.src = "./Images/Personagens/Carolina-game-over.png"; // muda a imagem (fim do jogo)
+    Carolina.src = ".Images/Personagens/Carolina-game-over.png"; // muda a imagem (fim do jogo)
     clearInterval(loop_jogo); // para o loop do jogo para evitar novo processamento
 
     // Para a troca de inimigos
@@ -1416,7 +1415,7 @@ gamOver_elemento.onclick = function() {
   
   
   // Reinicie animações, classes, imagens
-  Carolina.src = "/Images/Personagens/Personagem Carolina.gif";
+  Carolina.src = "Images/Personagens/Personagem Carolina.gif";
   inimigos.style.animation = "";
   inimigos.classList.remove("inimigo-animação");
   
