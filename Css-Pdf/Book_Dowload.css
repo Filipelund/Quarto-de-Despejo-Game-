@@ -599,7 +599,7 @@ Table of Contents
 }
 
 .Capa-livro {
-background-image: url(/Audio/Images/Capa-livro.webp);
+background-image: url(Images/Capa-livro.webp);
 background-size: cover;
 }
 
@@ -705,5 +705,6 @@ figcaption p {
 	}
 
 }
+
 
 
