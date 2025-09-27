@@ -530,9 +530,11 @@ overflow-y: auto;
 border-radius: 5px;
 
 /*inibe a imagem */
-display: none;
+visibility: hidden;
+pointer-events: none;
 opacity: 0;
 
+transition: opacity 1s ease-in-out;
 }
 
 
@@ -549,12 +551,14 @@ border-radius: 10px;
 background: rgba(0, 0, 0, 0.8);
 
 /*inibe o X */
-display: none;
+visibility: hidden;
+pointer-events: none;
 opacity: 0;
 
 outline: none; /* remove foco azul */
 -webkit-tap-highlight-color: transparent; /* remove highlight ao tocar no mobile */
 user-select: none;
+transition: opacity 1s ease-in-out;
 }
 
 
@@ -1015,29 +1019,41 @@ const trechosLivro = [
 
 function cartaReflexão() {
 
+
 const carta = document.querySelector(".carta-reflexão")
 
-carta.style.display = "block"
+carta.style.visibility = "visible"
+carta.style.pointerEvents = "all"
 carta.style.opacity = "100%"
+
 
 
 const xSair = document.querySelector(".xSair")
 
-xSair.style.display = "block"
+xSair.style.visibility = "visible"
+xSair.style.pointerEvents = "all"
 xSair.style.opacity = "100%"
 
 
 
 xSair.onclick = function() {
 
-carta.style.display = "none"
-carta.style.opacity = "0%"
 
-xSair.style.display = "none"
-xSair.style.opacity = "0%"
+carta.style.opacity = "0"; 
+xSair.style.opacity = "0";
+
+/* aguarda o tempo da transição, porque parece que esses elementos dentro do setTimeout, se forem ativados ao 
+mesmo tempo que a opacidade fica em zero, o transition não é ativado, e ae tem que ser depois */
+setTimeout(() => {
+carta.style.visibility = "hidden";
+carta.style.pointerEvents = "none";
+xSair.style.visibility = "hidden";
+xSair.style.pointerEvents = "none";
+}, 500); // tempo igual ao transition duration em CSS (0.3s)
 
 }
 
+	
 }
 
 
@@ -1502,6 +1518,7 @@ botao_gameOver.style.MozFocusInner = 'none'; // para Firefox
     
 </body>
 </html>
+
 
 
 
